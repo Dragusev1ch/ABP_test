@@ -2,6 +2,7 @@
 using ABP_test.Interfaces;
 using ABP_test.Model;
 using ABP_test.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ABP_test.Repositories
 {
@@ -14,34 +15,39 @@ namespace ABP_test.Repositories
             Database = database;
         }
 
-        public IQueryable<User> GetAll()
+        public IQueryable<ExperimentResult> GetAll()
         {
-            throw new NotImplementedException();
+            return Database.ExperimentsResult.AsQueryable();
         }
 
         public ExperimentResult Get(int id)
         {
-            throw new NotImplementedException();
+            return Database.Find<ExperimentResult>(id);
         }
 
         public IEnumerable<ExperimentResult> Find(Func<ExperimentResult, bool> predicate)
         {
-            throw new NotImplementedException();
+            return Database.ExperimentsResult.Where(predicate).ToList();
         }
 
         public void Create(ExperimentResult item)
         {
-            throw new NotImplementedException();
+            Database.ExperimentsResult.Add(item);
         }
 
         public void Update(ExperimentResult item)
         {
-            throw new NotImplementedException();
+            Database.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var experimentResult = Database.Find<ExperimentResult>(id);
+
+            if (experimentResult != null)
+            {
+                Database.ExperimentsResult.Remove(experimentResult);
+            }
         }
     }
 }
