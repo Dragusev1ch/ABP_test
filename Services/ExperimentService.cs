@@ -22,7 +22,7 @@ namespace ABP_test.Services
         public Experiment GetButtonColorExperiment(string deviceToken)
         {
             // Перевірка, чи вже є результат для даного device-token
-            var experiment = Database.Experiments.GetAll().FirstOrDefault(ex => ex.Token.DeviceToken == deviceToken);
+            var experiment = Database.Experiments.GetAll().FirstOrDefault(ex => ex.TokenName == deviceToken);
             
             if (experiment != null)
             {
@@ -41,8 +41,7 @@ namespace ABP_test.Services
             var result = new Experiment()
             {
                 Name = "button_color",
-                Token = token,
-                TokenId = token.Id,
+                TokenName = token.DeviceToken,
                 Value = buttonColorOptions[randomIndex]
             };
 
@@ -55,7 +54,7 @@ namespace ABP_test.Services
 
         public Experiment GetPriceExperiment(string deviceToken)
         {
-            var experiment = Database.Experiments.GetAll().FirstOrDefault(ex => ex.Token.DeviceToken == deviceToken);
+            var experiment = Database.Experiments.GetAll().FirstOrDefault(ex => ex.TokenName == deviceToken);
 
             if (experiment != null)
             {
@@ -72,22 +71,22 @@ namespace ABP_test.Services
             switch (randomValue)
             {
                 case <= 75:
-                    result = new Experiment() { Name = "price", Value = "10", Token = token, TokenId = token.Id };
+                    result = new Experiment() { Name = "price", Value = "10", TokenName = token.DeviceToken };
                     Database.Experiments.Create(result);
                     Database.Save();
                     return result;
                 case <= 85:
-                    result = new Experiment { Name = "price", Value = "20", Token = token, TokenId = token.Id };
+                    result = new Experiment { Name = "price", Value = "20", TokenName = token.DeviceToken };
                     Database.Experiments.Create(result);
                     Database.Save();
                     return result;
                 case <= 90:
-                    result = new Experiment { Name = "price", Value = "50", Token = token, TokenId = token.Id };
+                    result = new Experiment { Name = "price", Value = "50", TokenName = token.DeviceToken };
                     Database.Experiments.Create(result);
                     Database.Save();
                     return result;
             }
-            result = new Experiment { Name = "price", Value = "5", Token = token, TokenId = token.Id };
+            result = new Experiment { Name = "price", Value = "5", TokenName = token.DeviceToken };
             Database.Experiments.Create(result);
             Database.Save();
             return result;

@@ -31,7 +31,8 @@ namespace ABP_test.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TokenId = table.Column<int>(type: "int", nullable: false)
+                    TokenName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TokenId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,8 +41,7 @@ namespace ABP_test.Migrations
                         name: "FK_Experiments_Tokens_TokenId",
                         column: x => x.TokenId,
                         principalTable: "Tokens",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

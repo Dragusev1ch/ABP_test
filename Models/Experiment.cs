@@ -14,11 +14,7 @@ namespace ABP_test.Models
         public string Name { get; set; }
 
         public string Value { get; set; }
-
-        // Зовнішній ключ для відношення до моделі Token
-        public int TokenId { get; set; }
-
-        [ForeignKey("TokenId")]
-        public Token Token { get; set; }
+        
+        public string TokenName { get; set; }
     }
 }
