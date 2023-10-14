@@ -5,8 +5,7 @@ namespace ABP_test.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
-    IRepository<User> Users { get; }
+    IRepository<Token> Tokens { get; }
     IRepository<Experiment> Experiments { get; }
-    IRepository<ExperimentResult> ExperimentsResult { get; }
     void Save();
 }
