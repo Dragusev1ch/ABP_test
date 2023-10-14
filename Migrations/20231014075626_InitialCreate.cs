@@ -25,7 +25,7 @@ namespace ABP_test.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Tokens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,7 +61,7 @@ namespace ABP_test.Migrations
                     table.ForeignKey(
                         name: "FK_ExperimentsResult_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "Tokens",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -87,7 +87,7 @@ namespace ABP_test.Migrations
                 name: "Experiments");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Tokens");
         }
     }
 }

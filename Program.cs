@@ -1,5 +1,7 @@
 using ABP_test.EF;
+using ABP_test.Interfaces;
 using ABP_test.Interfaces.Services;
+using ABP_test.Repositories;
 using ABP_test.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IExperimentService, ExperimentService>();
+builder.Services.AddSingleton<System.Random>();
 
 var app = builder.Build();
 

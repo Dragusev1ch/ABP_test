@@ -8,9 +8,8 @@ namespace ABP_test.Repositories;
 public class EFUnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext Database;
-    private UserRepository UserRepository;
+    private TokenRepository TokenRepository;
     private ExperimentRepository ExperimentRepository;
-    private ExperimentResultRepository ExperimentResultRepository;
 
     private bool disposed;
 
@@ -19,13 +18,13 @@ public class EFUnitOfWork : IUnitOfWork
         Database = dbContext;
     }
 
-    public IRepository<User> Users
+    public IRepository<Token> Tokens
     {
         get
         {
-            if(UserRepository == null) UserRepository = new UserRepository(Database);
+            if(TokenRepository == null) TokenRepository = new TokenRepository(Database);
 
-            return UserRepository;
+            return TokenRepository;
         }
     }
 
@@ -36,17 +35,6 @@ public class EFUnitOfWork : IUnitOfWork
             if(ExperimentRepository == null) ExperimentRepository = new ExperimentRepository(Database);
 
             return ExperimentRepository;
-        }
-    }
-
-    public IRepository<ExperimentResult> ExperimentsResult
-    {
-        get
-        {
-            if (ExperimentResultRepository == null)
-                ExperimentResultRepository = new ExperimentResultRepository(Database);
-
-            return ExperimentResultRepository;
         }
     }
 

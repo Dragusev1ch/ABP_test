@@ -39,7 +39,7 @@ namespace ABP_test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("ABP_test.Models.Experiment", b =>

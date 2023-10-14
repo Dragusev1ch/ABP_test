@@ -10,8 +10,7 @@ namespace ABP_test.EF
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         public DbSet<Experiment> Experiments { get; set; }
-        public DbSet<ExperimentResult> ExperimentsResult { get; set; }
     }
 }
