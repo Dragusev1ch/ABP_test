@@ -1,4 +1,4 @@
-﻿using ABP_test.Dto;
+﻿    using ABP_test.Dto;
 using ABP_test.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +16,7 @@ namespace ABP_test.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("token")]
         public IActionResult CreateToken(CreateTokenDto token)
         {
             if (token == null)

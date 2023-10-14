@@ -4,7 +4,8 @@ namespace ABP_test.Interfaces.Services;
 
 public interface IExperimentService
 {
-    void CreateExperiment(string deviceToken);
+    Experiment GetButtonColorExperiment(string deviceToken);
+    Experiment GetPriceExperiment(string deviceToken);
     IQueryable<Experiment> GetAllExperiments();
     void Dispose();
 }

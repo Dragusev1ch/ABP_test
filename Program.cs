@@ -20,7 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IExperimentService, ExperimentService>();
-builder.Services.AddSingleton<System.Random>();
+builder.Services.AddSingleton<Random>();
 
 var app = builder.Build();
 

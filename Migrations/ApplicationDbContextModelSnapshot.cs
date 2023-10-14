@@ -21,7 +21,7 @@ namespace ABP_test.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ABP_test.Model.User", b =>
+            modelBuilder.Entity("ABP_test.Model.Token", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,11 +31,8 @@ namespace ABP_test.Migrations
 
                     b.Property<string>("DeviceToken")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -52,32 +49,10 @@ namespace ABP_test.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Options")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Experiments");
-                });
-
-            modelBuilder.Entity("ABP_test.Models.ExperimentResult", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ExperimentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
+                    b.Property<int>("TokenId")
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
@@ -86,40 +61,25 @@ namespace ABP_test.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExperimentId");
+                    b.HasIndex("TokenId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ExperimentsResult");
-                });
-
-            modelBuilder.Entity("ABP_test.Models.ExperimentResult", b =>
-                {
-                    b.HasOne("ABP_test.Models.Experiment", "Experiment")
-                        .WithMany("EstimatedResults")
-                        .HasForeignKey("ExperimentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ABP_test.Model.User", "User")
-                        .WithMany("ExperimentResults")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Experiment");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ABP_test.Model.User", b =>
-                {
-                    b.Navigation("ExperimentResults");
+                    b.ToTable("Experiments");
                 });
 
             modelBuilder.Entity("ABP_test.Models.Experiment", b =>
                 {
-                    b.Navigation("EstimatedResults");
+                    b.HasOne("ABP_test.Model.Token", "Token")
+                        .WithMany("ExperimentResults")
+                        .HasForeignKey("TokenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Token");
+                });
+
+            modelBuilder.Entity("ABP_test.Model.Token", b =>
+                {
+                    b.Navigation("ExperimentResults");
                 });
 #pragma warning restore 612, 618
         }

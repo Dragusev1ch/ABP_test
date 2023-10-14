@@ -14,17 +14,28 @@ namespace ABP_test.Controllers
             _experimentService = experimentService;
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult CreateExperiment(string key)
+        [HttpGet("button-color")]
+        public ActionResult<Experiment> GetButtonColorExperiment(string deviceToken)
         {
-            if (key == null)
+            var experimentResult = _experimentService.GetButtonColorExperiment(deviceToken);
+            if (experimentResult == null)
             {
-                throw new Exception("Key is null");
+                return NotFound();
             }
 
-            _experimentService.CreateExperiment(key);
-            return Ok();
+            return Ok(experimentResult);
+        }
+
+        [HttpGet("price")]
+        public ActionResult<Experiment> GetPriceExperiment(string deviceToken)
+        {
+            var experimentResult = _experimentService.GetPriceExperiment(deviceToken);
+            if (experimentResult == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(experimentResult);
         }
     }
 

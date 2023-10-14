@@ -5,7 +5,6 @@ using ABP_test.Interfaces.Services;
 using ABP_test.Model;
 using ABP_test.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace ABP_test.Services;
 
@@ -24,7 +23,6 @@ public class TokenService : ITokenService
         {
             DeviceToken = token.DeviceToken,
         };
-
 
         Database.Tokens.Create(result);
         Database.Save();
