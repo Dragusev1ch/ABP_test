@@ -19,6 +19,11 @@ namespace ABP_test.Services
             _random = random;
         }
 
+        public ExperimentService(IUnitOfWork database)
+        {
+            Database = database;
+        }
+
         public Experiment GetButtonColorExperiment(string deviceToken)
         {
             // Перевірка, чи вже є результат для даного device-token
