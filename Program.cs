@@ -1,4 +1,5 @@
 using ABP_test.EF;
+using ABP_test.Infrastructure;
 using ABP_test.Interfaces;
 using ABP_test.Interfaces.Services;
 using ABP_test.Repositories;
@@ -21,6 +22,7 @@ builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IExperimentService, ExperimentService>();
 builder.Services.AddSingleton<Random>();
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
@@ -34,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

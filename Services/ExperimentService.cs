@@ -11,13 +11,6 @@ namespace ABP_test.Services
     public class ExperimentService : IExperimentService
     {
         private readonly IUnitOfWork Database;
-        private readonly Random _random;
-
-        public ExperimentService(IUnitOfWork database, Random random)
-        {
-            Database = database;
-            _random = random;
-        }
 
         public ExperimentService(IUnitOfWork database)
         {
