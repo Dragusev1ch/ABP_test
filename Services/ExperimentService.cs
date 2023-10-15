@@ -8,32 +8,35 @@ using ABP_test.Model;
 
 namespace ABP_test.Services
 {
+    // This class provides services related to experiments.
     public class ExperimentService : IExperimentService
     {
         private readonly IUnitOfWork Database;
 
+        // Constructor to initialize the service with a database unit of work.
         public ExperimentService(IUnitOfWork database)
         {
             Database = database;
         }
 
+        // Get the button color experiment result for a given device token.
         public Experiment GetButtonColorExperiment(string deviceToken)
         {
-            // Перевірка, чи вже є результат для даного device-token
+            // Check if there is already a result for the given device token.
             var experiment = Database.Experiments.GetAll().FirstOrDefault(ex => ex.TokenName == deviceToken);
-            
+
             if (experiment != null)
             {
                 return experiment;
             }
 
+            // If no existing result, check if the device token is valid.
             var token = Database.Tokens.GetAll().FirstOrDefault(t => t.DeviceToken == deviceToken);
-            
+
             if (token == null)
-                throw new Exception("Token does not exist");
+                return null;
 
-
-                // Логіка для визначення кольору кнопки «купити»
+            // Logic to determine the color of the "Buy" button.
             var buttonColorOptions = new string[] { "#FF0000", "#00FF00", "#0000FF" };
             var randomIndex = new Random().Next(0, 3);
             var result = new Experiment()
@@ -43,13 +46,14 @@ namespace ABP_test.Services
                 Value = buttonColorOptions[randomIndex]
             };
 
-            // Збереження результату для подальшого використання
-            Database.Experiments.Create(result); 
+            // Save the result for future use.
+            Database.Experiments.Create(result);
             Database.Save();
 
             return result;
         }
 
+        // Get the price experiment result for a given device token.
         public Experiment GetPriceExperiment(string deviceToken)
         {
             var experiment = Database.Experiments.GetAll().FirstOrDefault(ex => ex.TokenName == deviceToken);
@@ -62,10 +66,13 @@ namespace ABP_test.Services
             var token = Database.Tokens.GetAll().FirstOrDefault(t => t.DeviceToken == deviceToken);
 
             if (token == null)
-                throw new Exception("Token does not exist");
+                return null;
 
+            // Generate a random value to determine the price.
             var randomValue = new Random().Next(1, 101);
             Experiment result;
+
+            // Assign price based on the random value.
             switch (randomValue)
             {
                 case <= 75:
@@ -84,17 +91,20 @@ namespace ABP_test.Services
                     Database.Save();
                     return result;
             }
+            // If randomValue does not fall into previous cases, assign a default price of 5.
             result = new Experiment { Name = "price", Value = "5", TokenName = token.DeviceToken };
             Database.Experiments.Create(result);
             Database.Save();
             return result;
         }
 
+        // Get all experiments from the database.
         public IQueryable<Experiment> GetAllExperiments()
         {
             return Database.Experiments.GetAll();
         }
 
+        // Dispose of the database resources when this service is no longer needed.
         public void Dispose()
         {
             Database.Dispose();
