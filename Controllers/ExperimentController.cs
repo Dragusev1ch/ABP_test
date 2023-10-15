@@ -37,6 +37,12 @@ namespace ABP_test.Controllers
 
             return Ok(experimentResult);
         }
+
+        [HttpGet("experiments")]
+        public IActionResult GetExperimentsList()
+        {
+            return Ok(_experimentService.GetAllExperiments());
+        }
     }
 
 }
