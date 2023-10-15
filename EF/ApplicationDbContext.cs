@@ -8,11 +8,11 @@ namespace ABP_test.EF
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         public DbSet<Experiment> Experiments { get; set; }
-        public DbSet<ExperimentResult> ExperimentsResult { get; set; }
     }
 }
